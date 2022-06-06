@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { Home } from "./src/components/Home";
 import { Money } from "./src/components/Money";
 
@@ -10,7 +11,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen
-          name="Attributes"
+          name="Home"
           component={Home}
           options={{
             tabBarIcon: () => (
@@ -21,7 +22,7 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Attributes"
+          name="Money"
           component={Money}
           options={{
             tabBarIcon: () => (
