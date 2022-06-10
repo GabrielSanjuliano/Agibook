@@ -1,8 +1,8 @@
 export const theme = {
   colors: {
-    light: "#808080",
-    brand: "#7FBF89",
-    dark: "#3F3F3F",
+    light: "#E2E8F0",
+    brand: "#6EE7B7",
+    dark: "#334155",
     white: "#FFFFFF",
   },
 };
