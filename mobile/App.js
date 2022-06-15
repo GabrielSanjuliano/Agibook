@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Home } from "./src/components/Home";
-import { Money } from "./src/components/Money";
+import { Lending } from "./src/components/Lending";
 import { User } from "./src/components/User";
 import { theme } from "./src/theme";
 
@@ -44,8 +44,8 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Money"
-          component={Money}
+          name="Lending"
+          component={Lending}
           options={{
             tabBarIcon: () => (
               <>
