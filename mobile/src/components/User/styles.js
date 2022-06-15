@@ -7,6 +7,12 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.light,
     padding: 50,
   },
+  user: {
+    color: theme.colors.brand,
+    fontSize: 25,
+    fontWeight: "bold",
+    marginBottom: 40,
+  },
   button: {
     height: 45,
     width: 150,
@@ -20,10 +26,6 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     color: theme.colors.white,
   },
-    titleText: {
-    fontSize: 20,
-    color: theme.colors.dark,
-  },
   image: {
     width: 24,
     height: 24,
@@ -31,13 +33,12 @@ export const styles = StyleSheet.create({
   },
   label: {
     fontSize: 15,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   input: {
     width: 300,
     height: 50,
-    padding: 12,
+    padding: 16,
     marginBottom: 25,
     borderRadius: 15,
     borderWidth: 2,

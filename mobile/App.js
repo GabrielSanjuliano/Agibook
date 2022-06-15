@@ -11,14 +11,23 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
-         <Tab.Screen
+      <Tab.Navigator
+        sceneContainerStyle={{ colors: theme.colors.brand }}
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+          // tabBarLabel: { color: theme.colors.brand },
+          tabBarShowLabel: false,
+          tabBarStyle: { backgroundColor: theme.colors.brand },
+        }}
+      >
+        <Tab.Screen
           name="User"
           component={User}
           options={{
             tabBarIcon: () => (
               <>
-                <Icon name="user-plus" color={theme.colors.dark} size={25} />
+                <Icon name="user-plus" color={theme.colors.white} size={25} />
               </>
             ),
           }}
@@ -29,7 +38,7 @@ export default function App() {
           options={{
             tabBarIcon: () => (
               <>
-                <Icon name="home" size={25} color={theme.colors.dark} />
+                <Icon name="home" size={25} color={theme.colors.white} />
               </>
             ),
           }}
@@ -40,7 +49,11 @@ export default function App() {
           options={{
             tabBarIcon: () => (
               <>
-                <Icon name="money-bill-wave" size={25} color={theme.colors.dark} />
+                <Icon
+                  name="money-bill-wave"
+                  size={25}
+                  color={theme.colors.white}
+                />
               </>
             ),
           }}

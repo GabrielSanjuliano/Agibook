@@ -15,10 +15,11 @@ export function User() {
   const [name, setName] = useState(false);
   const [number, setNumber] = useState(false);
   const [document, setDocument] = useState(false);
-  const [adress, setAdress] = useState(false);
+  const [address, setAddress] = useState(false);
   return (
     <View style={styles.container}>
       <View>
+        <Text style={styles.user}>User</Text>
         <Text style={styles.label}>Name</Text>
         <TextInput
           onChangeText={setName}
@@ -49,12 +50,12 @@ export function User() {
         />
       </View>
       <View>
-        <Text style={styles.label}>Adress</Text>
+        <Text style={styles.label}>Address</Text>
         <TextInput
-          onChangeText={setAdress}
+          onChangeText={setAddress}
           autoCorrect={false}
           style={styles.input}
-          placeholder="Type the client adress"
+          placeholder="Type the client address"
           placeholderTextColor={theme.colors.dark}
         />
       </View>
@@ -65,7 +66,6 @@ export function User() {
           fillColor={theme.colors.brand}
           unfillColor="#FFFFFF"
           iconStyle={{ borderColor: theme.colors.brand }}
-          textStyle={{ fontFamily: "JosefinSans-Regular" }}
           text="Alive"
 
           // onPress={(isChecked: boolean) => {}}
