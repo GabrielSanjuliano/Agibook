@@ -9,31 +9,27 @@ export const styles = StyleSheet.create({
   },
   user: {
     color: theme.colors.brand,
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: "bold",
     marginBottom: 40,
   },
   button: {
     height: 45,
-    width: 150,
+    width: "100%",
     backgroundColor: theme.colors.brand,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 15,
-    marginTop: 20,
+    marginTop: 30,
   },
   title: {
     fontSize: 14,
     color: theme.colors.white,
   },
-  image: {
-    width: 24,
-    height: 24,
-    marginRight: 8,
-  },
   label: {
-    fontSize: 15,
+    fontSize: 18,
     marginBottom: 8,
+    fontWeight: "bold",
   },
   input: {
     width: 300,

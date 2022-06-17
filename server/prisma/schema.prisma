@@ -20,12 +20,13 @@ model Client {
 }
 
 model Lending {
-  id             String   @id @default(uuid())
-  client_id      String
-  client         Client   @relation(fields: [client_id], references: [id])
-  lending_value  Decimal
-  received_value Decimal
-  created_at     DateTime @default(now())
+  id            String   @id @default(uuid())
+  client_id     String
+  client        Client   @relation(fields: [client_id], references: [id])
+  lending_value Decimal
+  fee           Decimal
+  parcels       Decimal
+  created_at    DateTime @default(now())
 
   @@map("lendings")
 }

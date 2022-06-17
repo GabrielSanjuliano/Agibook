@@ -19,43 +19,43 @@ export function User() {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.user}>User</Text>
-        <Text style={styles.label}>Name</Text>
+        <Text style={styles.user}>Cadastro de cliente</Text>
+        <Text style={styles.label}>Nome</Text>
         <TextInput
           onChangeText={setName}
           autoCorrect={false}
           style={styles.input}
-          placeholder="Type the client name"
+          placeholder="Nome"
           placeholderTextColor={theme.colors.dark}
         />
       </View>
       <View>
-        <Text style={styles.label}>Number</Text>
+        <Text style={styles.label}>Número</Text>
         <TextInput
           onChangeText={setNumber}
           autoCorrect={false}
           style={styles.input}
-          placeholder="Type the client number"
+          placeholder="Número"
           placeholderTextColor={theme.colors.dark}
         />
       </View>
       <View>
-        <Text style={styles.label}>Document</Text>
+        <Text style={styles.label}>CPF</Text>
         <TextInput
           onChangeText={setDocument}
           autoCorrect={false}
           style={styles.input}
-          placeholder="Type the client document"
+          placeholder="CPF"
           placeholderTextColor={theme.colors.dark}
         />
       </View>
       <View>
-        <Text style={styles.label}>Address</Text>
+        <Text style={styles.label}>Endereço</Text>
         <TextInput
           onChangeText={setAddress}
           autoCorrect={false}
           style={styles.input}
-          placeholder="Type the client address"
+          placeholder="Endereço"
           placeholderTextColor={theme.colors.dark}
         />
       </View>
@@ -66,7 +66,7 @@ export function User() {
           fillColor={theme.colors.brand}
           unfillColor="#FFFFFF"
           iconStyle={{ borderColor: theme.colors.brand }}
-          text="Alive"
+          text="Vivo"
 
           // onPress={(isChecked: boolean) => {}}
         />
@@ -74,7 +74,7 @@ export function User() {
           {isLoading ? (
             <ActivityIndicator color={theme.colors.brand} />
           ) : (
-            <Text style={styles.title}>Save</Text>
+            <Text style={styles.title}>Salvar</Text>
           )}
         </TouchableOpacity>
       </View>
