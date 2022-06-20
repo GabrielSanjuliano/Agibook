@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { styles } from "./styles";
+import { api } from "../../libs/api";
 
 export function User() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,29 @@ export function User() {
   const [number, setNumber] = useState(false);
   const [document, setDocument] = useState(false);
   const [address, setAddress] = useState(false);
+
+  async function saveClient() {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+    await api
+      .post("/client", {
+        name,
+        number,
+        address,
+        document,
+      })
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  }
+
   return (
     <View style={styles.container}>
       <View>
@@ -70,7 +94,11 @@ export function User() {
 
           // onPress={(isChecked: boolean) => {}}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          disabled={isLoading}
+          onPress={saveClient}
+          style={styles.button}
+        >
           {isLoading ? (
             <ActivityIndicator color={theme.colors.brand} />
           ) : (
