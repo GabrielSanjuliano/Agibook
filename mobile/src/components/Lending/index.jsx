@@ -12,10 +12,50 @@ import { styles } from "./styles";
 import NumericInput from "react-native-numeric-input";
 import CurrencyInput from "react-native-currency-input";
 import RNPickerSelect from "react-native-picker-select";
+import { getAllClients } from "../../helpers/getAllClients";
+import { api } from "../../libs/api";
 
 export function Lending() {
   const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = React.useState(0);
+  const [clients, setClients] = useState([]);
+  const [fee, setFee] = useState();
+  const [parcels, setParcels] = useState();
+  const [selectedClient, setSelectedClient] = useState({});
+
+  async function saveLending() {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+    await api
+      .post("/lending", {
+        name,
+        number,
+        address,
+        document,
+      })
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getAllClients(setClients);
+    console.log("1º - ", clients);
+  }, []);
+
+  useEffect(() => {
+    console.log("1º - ", clients);
+    console.log("2º - ", value);
+    console.log("3º - ", fee);
+    console.log("4º - ", parcels);
+  }, [value, fee, parcels]);
 
   return (
     <View style={styles.container}>
@@ -29,11 +69,7 @@ export function Lending() {
             value: null,
           }}
           onValueChange={(value) => console.log(value)}
-          items={[
-            { label: "Football", value: "football" },
-            { label: "Baseball", value: "baseball" },
-            { label: "Hockey", value: "hockey" },
-          ]}
+          items={clients}
         />
       </View>
       <View>
@@ -52,15 +88,15 @@ export function Lending() {
             fontSize: 20,
             borderRadius: 15,
           }}
-          onChangeText={(formattedValue) => {
-            console.log(formattedValue); // $2,310.46
-          }}
+          // onChangeText={(formattedValue) => {
+          //   console.log(formattedValue); // $2,310.46
+          // }}
         />
       </View>
       <View>
         <Text style={styles.label}>Parcelas</Text>
         <NumericInput
-          onChange={(value) => console.log(value)}
+          onChange={(value) => setParcels(value)}
           iconSize={25}
           step={1}
           valueType="real"
@@ -74,7 +110,7 @@ export function Lending() {
       <View>
         <Text style={styles.label}>Juros</Text>
         <NumericInput
-          onChange={(value) => console.log(value)}
+          onChange={(value) => setFee(value)}
           iconSize={25}
           step={1}
           valueType="real"
@@ -85,7 +121,7 @@ export function Lending() {
           leftButtonBackgroundColor={theme.colors.brand}
         />
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={saveLending} style={styles.button}>
         {isLoading ? (
           <ActivityIndicator color={theme.colors.brand} />
         ) : (

@@ -5,10 +5,23 @@ import { Home } from "./src/components/Home";
 import { Lending } from "./src/components/Lending";
 import { User } from "./src/components/User";
 import { theme } from "./src/theme";
+import { useEffect, useState } from "react";
+import { api } from "./src/libs/api";
+import { getAllClients } from "./src/helpers/getAllClients";
+import { getAllLendings } from "./src/helpers/getAllLendings";
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [clients, setClients] = useState([]);
+  const [lendings, setLendings] = useState([]);
+
+  useEffect(() => {
+    getAllClients(setClients);
+    console.log("1º - ", clients);
+    getAllLendings(setLendings);
+    console.log("2º - ", lendings);
+  }, []);
   return (
     <NavigationContainer>
       <Tab.Navigator
