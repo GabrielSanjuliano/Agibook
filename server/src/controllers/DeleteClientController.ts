@@ -10,7 +10,7 @@ export class DeleteClientController {
         id,
       },
     });
-
+    console.log(client);
     return res.json(client);
   }
 }
