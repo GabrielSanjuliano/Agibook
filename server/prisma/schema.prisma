@@ -22,7 +22,7 @@ model Client {
 model Lending {
   id            String   @id @default(uuid())
   client_id     String
-  client        Client   @relation(fields: [client_id], references: [id])
+  client        Client   @relation(fields: [client_id], references: [id], onDelete: Cascade)
   lending_value Decimal
   fee           Decimal
   parcels       Decimal

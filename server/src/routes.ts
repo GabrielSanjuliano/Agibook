@@ -1,4 +1,3 @@
-import { DeleteAllLendingController } from "./controllers/DeleteAllLendingController";
 import { Router } from "express";
 import { CreateClientController } from "./controllers/CreateClientController";
 import { CreateLendingController } from "./controllers/CreateLendingController";
@@ -30,7 +29,6 @@ const updateLending = new UpdateLendingController();
 //DELETE
 const deleteClient = new DeleteClientController();
 const deleteLending = new DeleteLendingController();
-const deleteAllLending = new DeleteAllLendingController();
 
 //POST
 router.post("/client", createClient.handle);
@@ -49,6 +47,5 @@ router.put("/lending", updateLending.handle);
 //DELETE
 router.delete("/client/:id", deleteClient.handle);
 router.delete("/lending/:id", deleteLending.handle);
-router.delete("/lendings/:id", deleteAllLending.handle);
 
 export { router };
