@@ -17,10 +17,8 @@ export default function App() {
   const [lendings, setLendings] = useState([]);
 
   useEffect(() => {
-    getAllClients(setClients);
-    console.log("1º - ", clients);
-    getAllLendings(setLendings);
-    console.log("2º - ", lendings);
+    getAllClients().then((res) => setClients(res.data));
+    getAllLendings().then((res) => setLendings(res.data));
   }, []);
   return (
     <NavigationContainer>

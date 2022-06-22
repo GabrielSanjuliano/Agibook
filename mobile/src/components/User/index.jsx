@@ -42,6 +42,14 @@ export function User() {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        disabled={isLoading}
+        onPress={saveClient}
+        style={styles.button}
+      >
+        <Text style={styles.title}>Lista</Text>
+        {/* <ListBullets size={32} /> */}
+      </TouchableOpacity>
       <View>
         <Text style={styles.user}>Cadastro de cliente</Text>
         <Text style={styles.label}>Nome</Text>

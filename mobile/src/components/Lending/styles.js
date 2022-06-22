@@ -7,6 +7,9 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.light,
     padding: 50,
   },
+  scroll: {
+    backgroundColor: theme.colors.light,
+  },
   user: {
     color: theme.colors.brand,
     fontSize: 30,

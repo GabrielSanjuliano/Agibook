@@ -14,6 +14,8 @@ import CurrencyInput from "react-native-currency-input";
 import RNPickerSelect from "react-native-picker-select";
 import { getAllClients } from "../../helpers/getAllClients";
 import { api } from "../../libs/api";
+import SelectList from "react-native-dropdown-select-list";
+import { ScrollView } from "react-native-gesture-handler";
 
 export function Lending() {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +24,6 @@ export function Lending() {
   const [fee, setFee] = useState();
   const [parcels, setParcels] = useState();
   const [selectedClient, setSelectedClient] = useState({});
-
   async function saveLending() {
     if (isLoading) {
       return;
@@ -30,10 +31,10 @@ export function Lending() {
     setIsLoading(true);
     await api
       .post("/lending", {
-        name,
-        number,
-        address,
-        document,
+        client_id: selectedClient,
+        lending_value: value,
+        fee,
+        parcels,
       })
       .then((res) => {
         console.log(res);
@@ -46,88 +47,77 @@ export function Lending() {
   }
 
   useEffect(() => {
-    getAllClients(setClients);
-    console.log("1º - ", clients);
+    getAllClients().then((res) => {
+      setClients(
+        res.data.map((client) => {
+          return { key: client.id, value: client.name };
+        })
+      );
+    });
   }, []);
 
-  useEffect(() => {
-    console.log("1º - ", clients);
-    console.log("2º - ", value);
-    console.log("3º - ", fee);
-    console.log("4º - ", parcels);
-  }, [value, fee, parcels]);
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.user}>Fazer empréstimo</Text>
-      <View>
-        <Text style={styles.label}>Clientes</Text>
-        <RNPickerSelect
-          style={{ backgroundColor: theme.colors.brand }}
-          placeholder={{
-            label: "Selecione um cliente",
-            value: null,
-          }}
-          onValueChange={(value) => console.log(value)}
-          items={clients}
-        />
+    <ScrollView style={styles.scroll}>
+      <View style={styles.container}>
+        <Text style={styles.user}>Fazer empréstimo</Text>
+        <View>
+          <Text style={styles.label}>Clientes</Text>
+          <SelectList setSelected={setSelectedClient} data={clients} />
+        </View>
+        <View>
+          <Text style={styles.label}>Empréstimo</Text>
+          <CurrencyInput
+            value={value}
+            onChangeValue={setValue}
+            prefix="$"
+            delimiter=","
+            separator="."
+            precision={2}
+            style={{
+              backgroundColor: theme.colors.white,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              fontSize: 20,
+              borderRadius: 15,
+            }}
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>Parcelas</Text>
+          <NumericInput
+            onChange={(value) => setParcels(value)}
+            iconSize={25}
+            step={1}
+            valueType="real"
+            rounded
+            textColor="#555"
+            iconStyle={{ color: "white" }}
+            rightButtonBackgroundColor={theme.colors.brand}
+            leftButtonBackgroundColor={theme.colors.brand}
+          />
+        </View>
+        <View>
+          <Text style={styles.label}>Juros</Text>
+          <NumericInput
+            onChange={(value) => setFee(value)}
+            iconSize={25}
+            step={1}
+            valueType="real"
+            rounded
+            textColor="#555"
+            iconStyle={{ color: "white" }}
+            rightButtonBackgroundColor={theme.colors.brand}
+            leftButtonBackgroundColor={theme.colors.brand}
+          />
+        </View>
+        <TouchableOpacity onPress={saveLending} style={styles.button}>
+          {isLoading ? (
+            <ActivityIndicator color={theme.colors.brand} />
+          ) : (
+            <Text style={styles.title}>Salvar</Text>
+          )}
+        </TouchableOpacity>
       </View>
-      <View>
-        <Text style={styles.label}>Empréstimo</Text>
-        <CurrencyInput
-          value={value}
-          onChangeValue={setValue}
-          prefix="$"
-          delimiter=","
-          separator="."
-          precision={2}
-          style={{
-            backgroundColor: theme.colors.white,
-            paddingVertical: 10,
-            paddingHorizontal: 20,
-            fontSize: 20,
-            borderRadius: 15,
-          }}
-          // onChangeText={(formattedValue) => {
-          //   console.log(formattedValue); // $2,310.46
-          // }}
-        />
-      </View>
-      <View>
-        <Text style={styles.label}>Parcelas</Text>
-        <NumericInput
-          onChange={(value) => setParcels(value)}
-          iconSize={25}
-          step={1}
-          valueType="real"
-          rounded
-          textColor="#555"
-          iconStyle={{ color: "white" }}
-          rightButtonBackgroundColor={theme.colors.brand}
-          leftButtonBackgroundColor={theme.colors.brand}
-        />
-      </View>
-      <View>
-        <Text style={styles.label}>Juros</Text>
-        <NumericInput
-          onChange={(value) => setFee(value)}
-          iconSize={25}
-          step={1}
-          valueType="real"
-          rounded
-          textColor="#555"
-          iconStyle={{ color: "white" }}
-          rightButtonBackgroundColor={theme.colors.brand}
-          leftButtonBackgroundColor={theme.colors.brand}
-        />
-      </View>
-      <TouchableOpacity onPress={saveLending} style={styles.button}>
-        {isLoading ? (
-          <ActivityIndicator color={theme.colors.brand} />
-        ) : (
-          <Text style={styles.title}>Salvar</Text>
-        )}
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
