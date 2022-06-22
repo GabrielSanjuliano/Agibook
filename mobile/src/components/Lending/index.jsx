@@ -37,12 +37,10 @@ export function Lending() {
         parcels,
       })
       .then((res) => {
-        console.log(res);
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err);
       });
   }
 

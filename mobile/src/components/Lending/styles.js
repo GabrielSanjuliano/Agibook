@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     color: theme.colors.brand,
     fontSize: 30,
     fontWeight: "bold",
-    marginBottom: 40,
+    marginBottom: 20,
   },
   button: {
     height: 45,

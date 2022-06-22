@@ -4,5 +4,6 @@ export const theme = {
     brand: "#6EE7B7",
     dark: "#334155",
     white: "#FFFFFF",
+    red: "#F62F63",
   },
 };
