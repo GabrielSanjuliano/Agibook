@@ -16,6 +16,7 @@ import { getAllClients } from "../../helpers/getAllClients";
 import { api } from "../../libs/api";
 import SelectList from "react-native-dropdown-select-list";
 import { ScrollView } from "react-native-gesture-handler";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 export function Lending() {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +38,13 @@ export function Lending() {
         parcels,
       })
       .then((res) => {
+        getAllClients().then((res) => {
+          setClients(
+            res.data.map((client) => {
+              return { key: client.id, value: client.name };
+            })
+          );
+        });
         setIsLoading(false);
       })
       .catch((err) => {

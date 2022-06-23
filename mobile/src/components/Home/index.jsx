@@ -14,8 +14,10 @@ import PieChart from "react-native-pie-chart";
 import { styles } from "./styles";
 import { theme } from "../../theme";
 import { getAllClients } from "../../helpers/getAllClients";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { api } from "../../libs/api";
+import NumericInput from "react-native-numeric-input";
+import CurrencyInput from "react-native-currency-input";
 
 export function Home() {
   const [lendings, setLendings] = useState([]);
@@ -26,19 +28,25 @@ export function Home() {
   const [value, setValue] = useState();
   const [fee, setFee] = useState();
   const [parcels, setParcels] = useState();
+  const [updateShow, setUpdateShow] = useState(false);
+  const [clientName, setClientName] = useState();
+  const [clientId, setClientId] = useState();
 
   async function updateLending() {
     await api
       .put(`/lending`, {
         id: lendingId,
+        client_id: clientId,
         lending_value: value,
         fee,
-        parcles,
+        parcels,
       })
       .then(() => {
         getAllLendings().then((res) => {
           setLendings(res.data);
         });
+        setUpdateShow(false);
+        setLendingShow(true);
       });
   }
 
@@ -74,14 +82,10 @@ export function Home() {
     );
   }, [lendingShow, lendings]);
 
-  // console.log("1º - ", clients);
-  // console.log("2º - ", lendings);
-  // console.log(lendingShow);
-
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.container}>
-        {lendings.length > 0 && !lendingShow && (
+        {lendings.length > 0 && !lendingShow && !updateShow && (
           <View>
             <Text
               style={{
@@ -134,7 +138,111 @@ export function Home() {
             </TouchableOpacity>
           </View>
         )}
-        {lendingShow && (
+        {updateShow && !lendingShow && (
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                setUpdateShow(false);
+                setLendingShow(true);
+              }}
+              style={styles.back}
+            >
+              <Icon name="angle-left" color={theme.colors.white} size={25} />
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "bold",
+                color: theme.colors.brand,
+              }}
+            >
+              {clientName}
+            </Text>
+            <View style={{ marginVertical: 15 }}>
+              <Text style={styles.label}>
+                Empréstimo{"  "}
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: theme.colors.brand,
+                  }}
+                >
+                  {value}R$
+                </Text>
+              </Text>
+              <CurrencyInput
+                value={value}
+                onChangeValue={setValue}
+                prefix="$"
+                delimiter=","
+                separator="."
+                precision={2}
+                style={{
+                  backgroundColor: theme.colors.white,
+                  paddingVertical: 10,
+                  paddingHorizontal: 20,
+                  fontSize: 20,
+                  borderRadius: 15,
+                }}
+              />
+            </View>
+            <View style={{ marginVertical: 15 }}>
+              <Text style={styles.label}>
+                Parcelas{"  "}
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: theme.colors.brand,
+                  }}
+                >
+                  {parcels}
+                </Text>
+              </Text>
+              <NumericInput
+                onChange={(value) => setParcels(value)}
+                iconSize={25}
+                step={1}
+                valueType="real"
+                rounded
+                textColor="#555"
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor={theme.colors.brand}
+                leftButtonBackgroundColor={theme.colors.brand}
+              />
+            </View>
+            <View style={{ marginVertical: 15 }}>
+              <Text style={styles.label}>
+                Juros{"  "}
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    color: theme.colors.brand,
+                  }}
+                >
+                  {fee}%
+                </Text>
+              </Text>
+              <NumericInput
+                onChange={(value) => setFee(value)}
+                iconSize={25}
+                step={1}
+                valueType="real"
+                rounded
+                textColor="#555"
+                iconStyle={{ color: "white" }}
+                rightButtonBackgroundColor={theme.colors.brand}
+                leftButtonBackgroundColor={theme.colors.brand}
+              />
+            </View>
+            <TouchableOpacity onPress={updateLending} style={styles.button}>
+              <Text style={styles.title}>Editar</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {lendingShow && !updateShow && (
           <View>
             <TouchableOpacity
               onPress={() => {
@@ -243,7 +351,19 @@ export function Home() {
                       flexDirection: "row",
                     }}
                   >
-                    <TouchableOpacity onPress={() => {}} style={styles.edit}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setLendingId(lend.id);
+                        setClientName(lend.client.name);
+                        setClientId(lend.client.id);
+                        setValue(lend.lending_value);
+                        setFee(lend.fee);
+                        setParcels(lend.parcels);
+                        setUpdateShow(true);
+                        setLendingShow(false);
+                      }}
+                      style={styles.edit}
+                    >
                       <Text style={styles.title}>Editar</Text>
                     </TouchableOpacity>
                     <TouchableOpacity

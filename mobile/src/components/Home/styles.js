@@ -30,6 +30,21 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 15,
   },
+  input: {
+    width: 300,
+    height: 50,
+    padding: 16,
+    marginBottom: 25,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: theme.colors.brand,
+    color: theme.colors.dark,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 8,
+    fontWeight: "bold",
+  },
   edit: {
     right: -5,
     height: 35,

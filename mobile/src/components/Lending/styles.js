@@ -14,7 +14,15 @@ export const styles = StyleSheet.create({
     color: theme.colors.brand,
     fontSize: 30,
     fontWeight: "bold",
-    marginBottom: 20,
+  },
+  back: {
+    height: 50,
+    width: 50,
+    backgroundColor: theme.colors.brand,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    marginVertical: 30,
   },
   button: {
     height: 45,
